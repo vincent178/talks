@@ -3,7 +3,7 @@ package tutorial;
 
 option go_package = "github.com/vincent178/talks/proto-compatibility/v6";
 
-message HelloV2Request {
+message HelloV6Request {
     string name = 1;
 }
 
@@ -13,5 +13,5 @@ message HelloReply {
 }
 
 service HelloService {
-    rpc Hello(HelloV2Request) returns (HelloReply);
+    rpc Hello(HelloV6Request) returns (HelloReply);
 }

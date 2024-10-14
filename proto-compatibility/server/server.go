@@ -6,7 +6,7 @@ import (
 	"log"
 	"net"
 
-	pb "github.com/vincent178/talks/proto-compatibility/v1"
+	pb "github.com/vincent178/talks/proto-compatibility/v6"
 	"google.golang.org/grpc"
 	_ "google.golang.org/grpc/codes"
 	"google.golang.org/grpc/reflection"
@@ -17,10 +17,11 @@ type helloService struct {
     pb.UnimplementedHelloServiceServer
 }
 
-func (s *helloService) Hello(ctx context.Context, req *pb.HelloRequest) (*pb.HelloReply, error) {
+func (s *helloService) Hello(ctx context.Context, req *pb.HelloV6Request) (*pb.HelloReply, error) {
     name := req.Name
     return &pb.HelloReply{
         Message: fmt.Sprintf("Hello %s", name),
+        Version: "v6",
     }, nil
 }
 

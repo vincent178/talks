@@ -59,12 +59,12 @@ message HelloRequest {
 
 v6
 ```proto
-message HelloV2Request {
+message HelloV6Request {
     string name = 1;
 }
 
 service HelloService {
-    rpc Hello(HelloV2Request) returns (HelloReply);
+    rpc Hello(HelloV6Request) returns (HelloReply);
 }
 ```
 

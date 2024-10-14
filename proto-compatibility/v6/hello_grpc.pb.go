@@ -26,7 +26,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type HelloServiceClient interface {
-	Hello(ctx context.Context, in *HelloV2Request, opts ...grpc.CallOption) (*HelloReply, error)
+	Hello(ctx context.Context, in *HelloV6Request, opts ...grpc.CallOption) (*HelloReply, error)
 }
 
 type helloServiceClient struct {
@@ -37,7 +37,7 @@ func NewHelloServiceClient(cc grpc.ClientConnInterface) HelloServiceClient {
 	return &helloServiceClient{cc}
 }
 
-func (c *helloServiceClient) Hello(ctx context.Context, in *HelloV2Request, opts ...grpc.CallOption) (*HelloReply, error) {
+func (c *helloServiceClient) Hello(ctx context.Context, in *HelloV6Request, opts ...grpc.CallOption) (*HelloReply, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(HelloReply)
 	err := c.cc.Invoke(ctx, HelloService_Hello_FullMethodName, in, out, cOpts...)
@@ -51,7 +51,7 @@ func (c *helloServiceClient) Hello(ctx context.Context, in *HelloV2Request, opts
 // All implementations must embed UnimplementedHelloServiceServer
 // for forward compatibility.
 type HelloServiceServer interface {
-	Hello(context.Context, *HelloV2Request) (*HelloReply, error)
+	Hello(context.Context, *HelloV6Request) (*HelloReply, error)
 	mustEmbedUnimplementedHelloServiceServer()
 }
 
@@ -62,7 +62,7 @@ type HelloServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedHelloServiceServer struct{}
 
-func (UnimplementedHelloServiceServer) Hello(context.Context, *HelloV2Request) (*HelloReply, error) {
+func (UnimplementedHelloServiceServer) Hello(context.Context, *HelloV6Request) (*HelloReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Hello not implemented")
 }
 func (UnimplementedHelloServiceServer) mustEmbedUnimplementedHelloServiceServer() {}
@@ -87,7 +87,7 @@ func RegisterHelloServiceServer(s grpc.ServiceRegistrar, srv HelloServiceServer)
 }
 
 func _HelloService_Hello_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(HelloV2Request)
+	in := new(HelloV6Request)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -99,7 +99,7 @@ func _HelloService_Hello_Handler(srv interface{}, ctx context.Context, dec func(
 		FullMethod: HelloService_Hello_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(HelloServiceServer).Hello(ctx, req.(*HelloV2Request))
+		return srv.(HelloServiceServer).Hello(ctx, req.(*HelloV6Request))
 	}
 	return interceptor(ctx, in, info, handler)
 }
