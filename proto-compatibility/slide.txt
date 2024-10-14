@@ -55,6 +55,16 @@ message HelloRequest {
 }
 ```
 
+## Delete a Feild (2)
+
+it's important to make sure the field number is not reused in the future
+
+```proto
+message HelloRequest {
+    reserved 1;
+}
+```
+
 ## Rename a Message
 
 v6

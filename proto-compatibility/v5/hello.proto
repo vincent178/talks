@@ -5,6 +5,7 @@ option go_package = "github.com/vincent178/talks/proto-compatibility/v5";
 
 message HelloRequest {
     // string name = 1;
+    reserved 1;
 }
 
 message HelloReply {
