@@ -1,0 +1,17 @@
+syntax = "proto3";
+package tutorial;
+
+option go_package = "github.com/vincent178/talks/proto-compatibility/v6";
+
+message HelloV2Request {
+    string name = 1;
+}
+
+message HelloReply {
+    string message = 1;
+    string version = 2;
+}
+
+service HelloService {
+    rpc Hello(HelloV2Request) returns (HelloReply);
+}
